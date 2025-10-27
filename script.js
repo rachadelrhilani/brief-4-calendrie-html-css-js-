@@ -2,6 +2,7 @@
   const modalElement = document.getElementById('reservationModal');
   const modal = new bootstrap.Modal(modalElement);
   const days = document.querySelectorAll('.day');
+  const closeModel =  document.getElementById('closeModal');
 
 /*  */
 
@@ -16,5 +17,4 @@
   });
 
   // Fermeture du modal avec les boutons personnalisés
-  document.getElementById('closeModal').addEventListener('click', () => modal.hide());
-  document.getElementById('closeModalFooter').addEventListener('click', () => modal.hide());
+ closeModel.addEventListener('click', () => modal.hide());

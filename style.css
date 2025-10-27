@@ -1,9 +1,10 @@
 .nav-item a{
    color: white;
+   font-weight: 800 !important;
    transition: color 0.3s ease-in;
 }
 .nav-item a:hover{
-   color: red;
+   color: red !important;
 }
 .logo-img{
     width: 80px;
