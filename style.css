@@ -15,6 +15,15 @@
     top: 0%;
     right: 0%;
 }
-.Sam,.dim{
-    background-color: gray;
+.day{
+    cursor: pointer;
+}
+.sam,.dim{
+    background-color: #aaa;
+    color: #aaa;
+    cursor: no-drop !important;
+}
+.disabled {
+  color: #aaa;
+  cursor: no-drop;
 }
