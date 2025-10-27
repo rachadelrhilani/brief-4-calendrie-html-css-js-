@@ -1,8 +1,12 @@
 .nav-item a{
    color: white;
+   transition: color 0.3s ease-in;
+}
+.nav-item a:hover{
+   color: red;
 }
 .logo-img{
-    width: 70px;
+    width: 80px;
 }
 .day:hover{
     background-color: rgba(255, 210, 210, 0.826);
@@ -16,6 +20,9 @@
     right: 0%;
 }
 .day{
+    cursor: pointer;
+}
+.fleche{
     cursor: pointer;
 }
 .sam,.dim{
