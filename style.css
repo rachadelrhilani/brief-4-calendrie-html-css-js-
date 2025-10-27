@@ -1,0 +1,17 @@
+.nav-item a{
+   color: white;
+}
+.logo-img{
+    width: 70px;
+}
+.day:hover{
+    background-color: rgba(255, 210, 210, 0.826);
+}
+.day{
+    position: relative;
+}
+.num{
+    position: absolute;
+    top: 0%;
+    right: 0%;
+}
