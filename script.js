@@ -22,7 +22,8 @@ days.forEach(day => {
 
 closeModel.addEventListener('click', () => addmodal.hide()); /*cacher le modal*/
 
-// ajoute une reservation
+//============= Ajoute une reservation ==============
+
 let btnajouter = document.querySelector("#reservationModal .btn-primary");
 btnajouter.addEventListener("click", () => {
 
@@ -52,9 +53,13 @@ btnajouter.addEventListener("click", () => {
   localStorage.setItem("reservations", JSON.stringify(allResa));
 
   // Afficher le nom dans la case
-  const p = document.createElement("p");
-  p.textContent = nom;
-  selectday.appendChild(p);
+  if (typereserve === "Anniversaire") {
+    const p = document.createElement("p");
+    p.textContent = nom;
+    p.style.backgroundColor = "green"
+    selectday.appendChild(p);
+  }
+
 
   // Réinitialiser et fermer la modale
   let reserveForm = document.getElementById("reservationForm")
@@ -63,8 +68,9 @@ btnajouter.addEventListener("click", () => {
 });
 
 /* ============================================================================================== */
+
 /* affichage de module edit */
- document.addEventListener('click', (e) => {
+document.addEventListener('click', (e) => {
   if (e.target.tagName === 'P') {
     const nom = e.target.textContent;
     const jour = e.target.closest('.day').querySelector('.num').textContent;
