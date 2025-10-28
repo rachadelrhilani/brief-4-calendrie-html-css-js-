@@ -82,7 +82,35 @@ btnajouter.addEventListener("click", () => {
     }
   }
 });
+/* ==========================================================
+   MODIFIER LA RÉSERVATION
+========================================================== */
+document.getElementById('btnSave').addEventListener('click', () => {
+  const all = JSON.parse(localStorage.getItem('reservations') || '[]');
+  const index = all.findIndex(r => r.nom === currentresa.nom && r.jour === currentresa.jour);
 
+  all[index] = {
+    ...currentresa,
+    nom: document.getElementById('editNom').value.trim(),
+    debut: document.getElementById('editDebut').value,
+    fin: document.getElementById('editFin').value,
+    personnes: document.getElementById('editPersonnes').value,
+    type: document.getElementById('editType').value
+  };
+
+  localStorage.setItem('reservations', JSON.stringify(all));
+  location.reload(); // pour mettre à jour l’affichage
+});
+
+/* ==========================================================
+   SUPPRIMER LA RÉSERVATION
+========================================================== */
+document.getElementById('btnDelete').addEventListener('click', () => {
+  const all = JSON.parse(localStorage.getItem('reservations') || '[]');
+  const updated = all.filter(r => !(r.nom === currentresa.nom && r.jour === currentresa.jour));
+  localStorage.setItem('reservations', JSON.stringify(updated));
+  location.reload();
+});
 
 
 
