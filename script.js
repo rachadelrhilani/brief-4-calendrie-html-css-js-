@@ -23,6 +23,10 @@
   document.querySelector("#reservationModal .btn-primary").addEventListener("click", () => {
 
     const nom = document.getElementById("Nom").value.trim();
+    const heuredebut = document.getElementById("heure-debut").value.trim();
+    const heurefin = document.getElementById("heure-fin").value.trim();
+    const nbrpers = document.getElementById("nbr-pers").value.trim();
+    const typereserve = document.getElementById("type-reserve").value.trim();
 
     if (!nom || !selectedDay){
        return alert("Veuillez entrer un nom.");
@@ -32,7 +36,10 @@
     const resa = {
       jour: selectedDay.querySelector(".num").textContent,
       nom: nom,
-
+      heuredebut:heuredebut,
+      heurefin:heurefin,
+      nbrpersonne:nbrpers,
+      typereserver:typereserve
     };
 
     // Sauvegarde dans localStorage

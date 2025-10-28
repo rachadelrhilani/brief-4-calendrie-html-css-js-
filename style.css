@@ -47,8 +47,8 @@
   text-align: center;
   font-weight: 600;
   color: #0d6efd;
-  word-wrap: break-word;   /* Coupe les mots trop longs */
-  overflow: hidden;        /* Cache ce qui dépasse verticalement */
-  text-overflow: ellipsis; /* Ajoute "..." si le texte est trop long */
-  white-space: wrap;     /* Empêche le retour à la ligne */
+  word-wrap: break-word;  
+  overflow: hidden;        
+  text-overflow: ellipsis; 
+  white-space: wrap;    
 }
