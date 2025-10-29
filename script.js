@@ -26,7 +26,6 @@ closeModel.addEventListener('click', () => addmodal.hide()); /*cacher le modal*/
 
 let btnajouter = document.querySelector("#reservationModal .btn-primary");
 btnajouter.addEventListener("click", () => {
-
   const nom = document.getElementById("Nom").value.trim();
   const heuredebut = document.getElementById("heure-debut").value.trim();
   const heurefin = document.getElementById("heure-fin").value.trim();
@@ -36,7 +35,7 @@ btnajouter.addEventListener("click", () => {
   if (!nom || !selectday) {
     return alert("Veuillez entrer un nom (le nom doit contient seulemnt des lettres)");
   }
-  else if (isNaN(nom)) {
+  else if (/\d/.test(nom)) {
     return alert("Veuillez entrer un nom (le nom doit contient seulemnt des lettres)");
   }
   else if (!heuredebut || !heurefin) {
@@ -57,6 +56,7 @@ btnajouter.addEventListener("click", () => {
     nbrpersonne: nbrpers,
     typereserver: typereserve,
   };
+  console.log(resa)
 
   // Sauvegarde dans localstorage
   const allResa = JSON.parse(localStorage.getItem("reservations") || "[]");
