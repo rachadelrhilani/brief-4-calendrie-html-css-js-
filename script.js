@@ -34,9 +34,20 @@ btnajouter.addEventListener("click", () => {
   const typereserve = document.getElementById("type-reserve").value.trim();
 
   if (!nom || !selectday) {
-    return alert("Veuillez entrer un nom.");
+    return alert("Veuillez entrer un nom (le nom doit contient seulemnt des lettres)");
   }
-
+  else if (isNaN(nom)) {
+    return alert("Veuillez entrer un nom (le nom doit contient seulemnt des lettres)");
+  }
+  else if (!heuredebut || !heurefin) {
+    return alert("Veuillez un date de debut ou la date de fin");
+  }
+  else if (!nbrpers) {
+    return alert("Veuillez entre les nombres de personne");
+  }
+  else if (!typereserve) {
+    return alert("Veuillez entre votre type de reservation");
+  }
   // Créer la réservation
   const resa = {
     jour: selectday.querySelector(".num").textContent,
@@ -44,25 +55,33 @@ btnajouter.addEventListener("click", () => {
     heuredebut: heuredebut,
     heurefin: heurefin,
     nbrpersonne: nbrpers,
-    typereserver: typereserve
+    typereserver: typereserve,
   };
 
-  // Sauvegarde dans localStorage
+  // Sauvegarde dans localstorage
   const allResa = JSON.parse(localStorage.getItem("reservations") || "[]");
   allResa.push(resa);
   localStorage.setItem("reservations", JSON.stringify(allResa));
 
+  const p = document.createElement("p");
+  p.textContent = nom;
+  selectday.appendChild(p);
   // Afficher le nom dans la case
-  if (typereserve === "Anniversaire") {
-    const p = document.createElement("p");
-    p.textContent = nom;
-    p.style.backgroundColor = "green"
-    selectday.appendChild(p);
+  if (resa.typereserver === "Anniversaire") {
+    p.style.backgroundColor = "green";
+  }
+  else if (resa.typereserver === "VIP") {
+    p.style.backgroundColor = "red";
+  }
+  else if (resa.typereserver === "Événement spécial") {
+    p.style.backgroundColor = "blue";
+  }
+  else if (resa.typereserver === "Sur place") {
+    p.style.backgroundColor = "gray";
   }
 
-
   // Réinitialiser et fermer la modale
-  let reserveForm = document.getElementById("reservationForm")
+  let reserveForm = document.getElementById("reservationForm");
   reserveForm.reset();
   addmodal.hide();
 });
@@ -98,10 +117,10 @@ document.getElementById('btnSave').addEventListener('click', () => {
   all[index] = {
     ...currentresa,
     nom: document.getElementById('editNom').value.trim(),
-    debut: document.getElementById('editDebut').value,
-    fin: document.getElementById('editFin').value,
-    personnes: document.getElementById('editPersonnes').value,
-    type: document.getElementById('editType').value
+    heuredebut: document.getElementById('editDebut').value.trim(),
+    heurefin: document.getElementById('editFin').value.trim(),
+    nbrpersonne: document.getElementById('editPersonnes').value.trim(),
+    typereserver: document.getElementById('editType').value.trim()
   };
 
   localStorage.setItem('reservations', JSON.stringify(all));
@@ -120,11 +139,6 @@ document.getElementById('btnDelete').addEventListener('click', () => {
 
 
 
-
-
-
-
-
 // Charger les réservations existantes
 window.addEventListener("DOMContentLoaded", () => {
   const allResa = JSON.parse(localStorage.getItem("reservations") || "[]");
@@ -133,6 +147,17 @@ window.addEventListener("DOMContentLoaded", () => {
     if (jour) {
       const p = document.createElement("p");
       p.textContent = r.nom;
+      // Couleur selon le type
+      if (r.typereserver === "Anniversaire") {
+        p.style.backgroundColor = "green";
+      } else if (r.typereserver === "VIP") {
+        p.style.backgroundColor = "red";
+      } else if (r.typereserver === "Événement spécial") {
+        p.style.backgroundColor = "blue";
+      }
+      else if (r.typereserver === "Sur place") {
+        p.style.backgroundColor = "gray";
+      }
       jour.appendChild(p);
     }
   });
