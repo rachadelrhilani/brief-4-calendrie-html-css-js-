@@ -27,13 +27,16 @@ closeModel.addEventListener('click', () => addmodal.hide()); /*cacher le modal*/
 let btnajouter = document.querySelector("#reservationModal .btn-primary");
 btnajouter.addEventListener("click", () => {
   const nom = document.getElementById("Nom").value.trim();
-  const heuredebut = document.getElementById("heure-debut").value.trim();
-  const heurefin = document.getElementById("heure-fin").value.trim();
+  const heuredebut = document.getElementById("heure-debut").value;
+  const heurefin = document.getElementById("heure-fin").value;
   const nbrpers = document.getElementById("nbr-pers").value.trim();
   const typereserve = document.getElementById("type-reserve").value.trim();
 
   if (!nom || !selectday) {
     return alert("Veuillez entrer un nom (le nom doit contient seulemnt des lettres)");
+  }
+  if(heuredebut < "15:00" || heuredebut > heurefin|| heuredebut > "23:00" || heurefin  < "15:00" || heurefin > "23:00"){
+    return alert("Veuillez entrer une heure entre 15:00 et 23:00.");
   }
   else if (/\d/.test(nom)) {
     return alert("Veuillez entrer un nom (le nom doit contient seulemnt des lettres)");
