@@ -91,7 +91,7 @@ btnajouter.addEventListener("click", () => {
 
 /* ============================================================================================== */
 
-/* affichage de module edit */
+//============= affichage de module edit ==============
 document.addEventListener('click', (e) => {
   if (e.target.tagName === 'P') {
     const nom = e.target.textContent;
@@ -110,31 +110,58 @@ document.addEventListener('click', (e) => {
     }
   }
 });
-/* ==========================================================
-   MODIFIER LA RÉSERVATION
-========================================================== */
-document.getElementById('btnSave').addEventListener('click', () => {
+
+//============= modifie la réservation ==============
+let modifier = document.getElementById('btnSave');
+modifier.addEventListener('click', () => {
   const all = JSON.parse(localStorage.getItem('reservations') || '[]');
   const index = all.findIndex(r => r.nom === currentresa.nom && r.jour === currentresa.jour);
+  /* recupere les inputs à modifie */
+  let editnom = document.getElementById('editNom').value.trim();
+  let editdebut = document.getElementById('editDebut').value.trim();
+  let editfin = document.getElementById('editFin').value.trim();
+  let editpers = document.getElementById('editPersonnes').value.trim();
+  let edittype = document.getElementById('editType').value.trim();
 
-  
+   /* recupere les inputs à modifie */
+
+  if (!editnom) {
+    return alert("Veuillez entrer un nom (le nom doit contient seulemnt des lettres)");
+  }
+  if(editdebut < "15:00" || editdebut > editfin|| editdebut > "23:00" 
+    || editfin  < "15:00" || editfin > "23:00"){
+    return alert("Veuillez entrer une heure entre 15:00 et 23:00.");
+  }
+  else if (/\d/.test(editnom)) {
+    return alert("Veuillez entrer un nom (le nom doit contient seulemnt des lettres)");
+  }
+  else if (!editdebut || !editfin) {
+    return alert("Veuillez un date de debut ou la date de fin");
+  }
+  else if (!editpers) {
+    return alert("Veuillez entre les nombres de personne");
+  }
+  else if (!edittype) {
+    return alert("Veuillez entre votre type de reservation");
+  }
+
+
   all[index] = {
     ...currentresa,
-    nom: document.getElementById('editNom').value.trim(),
-    heuredebut: document.getElementById('editDebut').value.trim(),
-    heurefin: document.getElementById('editFin').value.trim(),
-    nbrpersonne: document.getElementById('editPersonnes').value.trim(),
-    typereserver: document.getElementById('editType').value.trim()
+    nom: editnom,
+    heuredebut: editdebut,
+    heurefin: editfin,
+    nbrpersonne: editpers,
+    typereserver: edittype
   };
 
   localStorage.setItem('reservations', JSON.stringify(all));
-  location.reload(); // pour mettre à jour l’affichage
+  location.reload(); 
 });
 
-/* ==========================================================
-   SUPPRIMER LA RÉSERVATION
-========================================================== */
-document.getElementById('btnDelete').addEventListener('click', () => {
+//============= supprimer la reservation ==============
+let suppimer = document.getElementById('btnDelete');
+suppimer.addEventListener('click', () => {
   const all = JSON.parse(localStorage.getItem('reservations') || '[]');
   const updated = all.filter(r => !(r.nom === currentresa.nom && r.jour === currentresa.jour));
   localStorage.setItem('reservations', JSON.stringify(updated));
