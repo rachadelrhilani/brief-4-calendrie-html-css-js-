@@ -117,6 +117,7 @@ document.getElementById('btnSave').addEventListener('click', () => {
   const all = JSON.parse(localStorage.getItem('reservations') || '[]');
   const index = all.findIndex(r => r.nom === currentresa.nom && r.jour === currentresa.jour);
 
+  
   all[index] = {
     ...currentresa,
     nom: document.getElementById('editNom').value.trim(),
