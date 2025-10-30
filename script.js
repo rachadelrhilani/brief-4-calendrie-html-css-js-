@@ -54,6 +54,7 @@ btnajouter.addEventListener("click", () => {
   const allResa = JSON.parse(localStorage.getItem("reservations") || "[]");
   const jour = selectday.querySelector(".num").textContent;
 
+
   /* verification s'il y a le meme heure dans un jour */
   const verification = allResa.some(r => {
     if (r.jour !== jour) return false; 
@@ -63,6 +64,7 @@ btnajouter.addEventListener("click", () => {
       heuredebut >= r.heurefin    // nouvelle commence après ancienne
     );
   });
+
 
   if (verification) {
     return alert("Ce créneau horaire est déjà réservé pour ce jour !");
