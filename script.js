@@ -160,7 +160,9 @@ modifier.addEventListener('click', () => {
 
    /* recupere les inputs à modifie */
 
-  
+  if (!editnom) {
+    return alert("Veuillez entrer un nom (le nom doit contient seulemnt des lettres)");
+  }
   if(editdebut < "15:00" || editdebut > editfin|| editdebut > "23:00" 
     || editfin  < "15:00" || editfin > "23:00"){
     return alert("Veuillez entrer une heure entre 15:00 et 23:00.");
