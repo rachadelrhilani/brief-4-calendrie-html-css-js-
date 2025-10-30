@@ -35,7 +35,7 @@ btnajouter.addEventListener("click", () => {
   if (!nom || !selectday) {
     return alert("Veuillez entrer un nom (le nom doit contient seulemnt des lettres)");
   }
-  if(heuredebut < "15:00" || heuredebut > heurefin|| heuredebut > "23:00" || heurefin  < "15:00" || heurefin > "23:00"){
+  if(heuredebut < "15:00" || heuredebut >= heurefin|| heuredebut > "23:00" || heurefin  < "15:00" || heurefin > "23:00"){
     return alert("Veuillez entrer une heure entre 15:00 et 23:00.");
   }
   else if (/\d/.test(nom)) {
@@ -50,19 +50,37 @@ btnajouter.addEventListener("click", () => {
   else if (!typereserve) {
     return alert("Veuillez entre votre type de reservation");
   }
+
+  const allResa = JSON.parse(localStorage.getItem("reservations") || "[]");
+  const jour = selectday.querySelector(".num").textContent;
+
+  /* verification s'il y a le meme heure dans un jour */
+  const verification = allResa.some(r => {
+    if (r.jour !== jour) return false; 
+    // test si les heures se chevauchent
+    return !(
+      heurefin <= r.heuredebut || // nouvelle finit avant ancienne
+      heuredebut >= r.heurefin    // nouvelle commence après ancienne
+    );
+  });
+
+  if (verification) {
+    return alert("Ce créneau horaire est déjà réservé pour ce jour !");
+  }
+
+
   // Créer la réservation
   const resa = {
-    jour: selectday.querySelector(".num").textContent,
+    jour: jour,
     nom: nom,
     heuredebut: heuredebut,
     heurefin: heurefin,
     nbrpersonne: nbrpers,
     typereserver: typereserve,
   };
-  console.log(resa)
+
 
   // Sauvegarde dans localstorage
-  const allResa = JSON.parse(localStorage.getItem("reservations") || "[]");
   allResa.push(resa);
   localStorage.setItem("reservations", JSON.stringify(allResa));
 
@@ -116,12 +134,29 @@ let modifier = document.getElementById('btnSave');
 modifier.addEventListener('click', () => {
   const all = JSON.parse(localStorage.getItem('reservations') || '[]');
   const index = all.findIndex(r => r.nom === currentresa.nom && r.jour === currentresa.jour);
+
   /* recupere les inputs à modifie */
   let editnom = document.getElementById('editNom').value.trim();
   let editdebut = document.getElementById('editDebut').value.trim();
   let editfin = document.getElementById('editFin').value.trim();
   let editpers = document.getElementById('editPersonnes').value.trim();
   let edittype = document.getElementById('editType').value.trim();
+
+
+  /* verification s'il y a le meme heure dans un jour */
+  const verification = all.some(r => {
+    if (r.jour !== currentresa.jour) return false; 
+    // test si les heures se chevauchent
+    return !(
+      editfin <= r.heuredebut || // nouvelle finit avant ancienne
+      editdebut >= r.heurefin    // nouvelle commence après ancienne
+    );
+  });
+
+  if (verification) {
+    return alert("Ce créneau horaire est déjà réservé pour ce jour !");
+  }
+
 
    /* recupere les inputs à modifie */
 
