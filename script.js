@@ -35,7 +35,7 @@ btnajouter.addEventListener("click", () => {
   if (!nom || !selectday) {
     return alert("Veuillez entrer un nom (le nom doit contient seulemnt des lettres)");
   }
-  if(heuredebut < "15:00" || heuredebut >= heurefin|| heuredebut > "23:00" || heurefin  < "15:00" || heurefin > "23:00"){
+  if (heuredebut < "15:00" || heuredebut >= heurefin || heuredebut > "23:00" || heurefin < "15:00" || heurefin > "23:00") {
     return alert("Veuillez entrer une heure entre 15:00 et 23:00.");
   }
   else if (/\d/.test(nom)) {
@@ -57,7 +57,7 @@ btnajouter.addEventListener("click", () => {
 
   /* verification s'il y a le meme heure dans un jour */
   const verification = allResa.some(r => {
-    if (r.jour !== jour) return false; 
+    if (r.jour !== jour) return false;
     // test si les heures se chevauchent
     return !(
       heurefin <= r.heuredebut || // nouvelle finit avant ancienne
@@ -89,15 +89,18 @@ btnajouter.addEventListener("click", () => {
   const p = document.createElement("p");
   p.textContent = nom;
   selectday.appendChild(p);
-  // Afficher le nom dans la case
+  // style le background color de paragraphe selon le value
   if (resa.typereserver === "Anniversaire") {
     p.style.backgroundColor = "green";
   }
   else if (resa.typereserver === "VIP") {
     p.style.backgroundColor = "red";
   }
-  else if (resa.typereserver === "Événement spécial") {
+  else if (resa.typereserver === "standard") {
     p.style.backgroundColor = "blue";
+  }
+  else if (resa.typereserver === "Événement spécial") {
+    p.style.backgroundColor = "pink";
   }
   else if (resa.typereserver === "Sur place") {
     p.style.backgroundColor = "gray";
@@ -147,7 +150,7 @@ modifier.addEventListener('click', () => {
 
   /* verification s'il y a le meme heure dans un jour */
   const verification = all.some(r => {
-    if (r.jour !== currentresa.jour) return false; 
+    if (r.jour !== currentresa.jour) return false;
     // test si les heures se chevauchent
     return !(
       editfin <= r.heuredebut || // nouvelle finit avant ancienne
@@ -160,13 +163,13 @@ modifier.addEventListener('click', () => {
   }
 
 
-   /* recupere les inputs à modifie */
+  /* recupere les inputs à modifie */
 
   if (!editnom) {
     return alert("Veuillez entrer un nom (le nom doit contient seulemnt des lettres)");
   }
-  if(editdebut < "15:00" || editdebut > editfin|| editdebut > "23:00" 
-    || editfin  < "15:00" || editfin > "23:00"){
+  if (editdebut < "15:00" || editdebut > editfin || editdebut > "23:00"
+    || editfin < "15:00" || editfin > "23:00") {
     return alert("Veuillez entrer une heure entre 15:00 et 23:00.");
   }
   else if (/\d/.test(editnom)) {
@@ -193,7 +196,7 @@ modifier.addEventListener('click', () => {
   };
 
   localStorage.setItem('reservations', JSON.stringify(all));
-  location.reload(); 
+  location.reload();
 });
 
 //============= supprimer la reservation ==============
@@ -206,6 +209,14 @@ suppimer.addEventListener('click', () => {
 });
 
 
+/* search un reservation selon le nom */
+let btnsearch = document.getElementById("btn-search");
+let search = document.getElementById("input-search").value.trim();
+btnsearch.addEventListener("click", () => {
+  const allResa = JSON.parse(localStorage.getItem("reservations") || "[]");
+  let trouve = allResa.find(r => r.nom === search);
+  
+})
 
 // Charger les réservations existantes
 window.addEventListener("DOMContentLoaded", () => {
@@ -220,8 +231,11 @@ window.addEventListener("DOMContentLoaded", () => {
         p.style.backgroundColor = "green";
       } else if (r.typereserver === "VIP") {
         p.style.backgroundColor = "red";
-      } else if (r.typereserver === "Événement spécial") {
+      } else if (r.typereserver === "standard") {
         p.style.backgroundColor = "blue";
+      }
+      else if (r.typereserver === "Événement spécial") {
+        p.style.backgroundColor = "pink";
       }
       else if (r.typereserver === "Sur place") {
         p.style.backgroundColor = "gray";
