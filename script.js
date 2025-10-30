@@ -142,22 +142,24 @@ modifier.addEventListener('click', () => {
 
   /* recupere les inputs à modifie */
   let editnom = document.getElementById('editNom').value.trim();
-  let editdebut = document.getElementById('editDebut').value.trim();
-  let editfin = document.getElementById('editFin').value.trim();
+  let editdebut = document.getElementById('editDebut').value;
+  let editfin = document.getElementById('editFin').value;
   let editpers = document.getElementById('editPersonnes').value.trim();
   let edittype = document.getElementById('editType').value.trim();
 
 
   /* verification s'il y a le meme heure dans un jour */
   const verification = all.some(r => {
-    if (r.jour !== currentresa.jour) return false;
+    if (r.jour !== currentresa.jour || (r.nom === currentresa.nom && r.heuredebut === currentresa.heuredebut && r.heurefin === currentresa.heurefin)) {
+      return false;
+    }
     // test si les heures se chevauchent
     return !(
       editfin <= r.heuredebut || // nouvelle finit avant ancienne
       editdebut >= r.heurefin    // nouvelle commence après ancienne
     );
   });
-
+  console.log(verification);
   if (verification) {
     return alert("Ce créneau horaire est déjà réservé pour ce jour !");
   }
@@ -215,7 +217,7 @@ let search = document.getElementById("input-search").value.trim();
 btnsearch.addEventListener("click", () => {
   const allResa = JSON.parse(localStorage.getItem("reservations") || "[]");
   let trouve = allResa.find(r => r.nom === search);
-  
+
 })
 
 // Charger les réservations existantes
