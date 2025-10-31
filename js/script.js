@@ -6,8 +6,14 @@ const closeModel = document.getElementById('closeModal');
 const editModal = new bootstrap.Modal(document.getElementById('editModal'));
 let selectday = null;
 let currentresa = null;
+const deleteall = document.getElementById("Supprimer-Tout");
 
-
+/* suppression de tout les reservations */
+deleteall.addEventListener("click",()=>{
+  localStorage.removeItem("reservations");
+  let daysp = document.querySelectorAll(".day p");
+  daysp.forEach((d)=>d.remove())
+})
 /* affiche le modal ajouter*/
 
 days.forEach(day => {
