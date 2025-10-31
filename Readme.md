@@ -14,6 +14,7 @@ Toutes les données sont sauvegardées localement dans le navigateur.
 ---
 
 ## 🧭 Structure du projet
+```
 📂 brief 4/
 │
 │
@@ -29,6 +30,7 @@ Toutes les données sont sauvegardées localement dans le navigateur.
 ├── 📄 README.md               # Documentation complète du projet
 │
 ├── 📄 index.html              # Fichier principal de la page
+```
 
 ---
 
