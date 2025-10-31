@@ -210,13 +210,32 @@ suppimer.addEventListener('click', () => {
   location.reload();
 });
 
-
+let trouve = null;
 /* search un reservation selon le nom */
 let btnsearch = document.getElementById("btn-search");
-let search = document.getElementById("input-search").value.trim();
+let search = document.getElementById("input-search");
 btnsearch.addEventListener("click", () => {
   const allResa = JSON.parse(localStorage.getItem("reservations") || "[]");
-  let trouve = allResa.find(r => r.nom === search);
+  trouve = allResa.find(r => r.nom === search.value.trim());
+  if (trouve) {
+    console.log(trouve);
+    const jour = [...days].find(d =>
+      d.querySelector(".num").textContent === trouve.jour
+    );
+    if (jour) {
+       jour.style.backgroundColor="yellow";
+       
+      // Couleur selon le type
+      if (trouve.typereserver === "Anniversaire") p.style.backgroundColor = "green";
+      else if (trouve.typereserver === "VIP") p.style.backgroundColor = "red";
+      else if (trouve.typereserver === "standard") p.style.backgroundColor = "blue";
+      else if (trouve.typereserver === "Événement spécial") p.style.backgroundColor = "pink";
+      else if (trouve.typereserver === "Sur place") p.style.backgroundColor = "gray";
+      jour.style.backgroundColor="white !important";
+    }
+  } else {
+   alert("Aucune réservation trouvée pour ce nom.");
+  }
 
 })
 
@@ -228,6 +247,7 @@ window.addEventListener("DOMContentLoaded", () => {
     if (jour) {
       const p = document.createElement("p");
       p.textContent = r.nom;
+      p.className = "reserve";
       // Couleur selon le type
       if (r.typereserver === "Anniversaire") {
         p.style.backgroundColor = "green";
@@ -246,4 +266,5 @@ window.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+
 
