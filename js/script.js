@@ -210,13 +210,19 @@ suppimer.addEventListener('click', () => {
   location.reload();
 });
 
-let trouve = null;
+
 /* search un reservation selon le nom */
 let btnsearch = document.getElementById("btn-search");
 let search = document.getElementById("input-search");
+let trouve = null;
 btnsearch.addEventListener("click", () => {
   const allResa = JSON.parse(localStorage.getItem("reservations") || "[]");
   trouve = allResa.find(r => r.nom === search.value.trim());
+
+
+  days.forEach(d => d.style.backgroundColor = "");
+
+
   if (trouve) {
     console.log(trouve);
     const jour = [...days].find(d =>
@@ -225,18 +231,12 @@ btnsearch.addEventListener("click", () => {
     if (jour) {
        jour.style.backgroundColor="yellow";
        
-      // Couleur selon le type
-      if (trouve.typereserver === "Anniversaire") p.style.backgroundColor = "green";
-      else if (trouve.typereserver === "VIP") p.style.backgroundColor = "red";
-      else if (trouve.typereserver === "standard") p.style.backgroundColor = "blue";
-      else if (trouve.typereserver === "Événement spécial") p.style.backgroundColor = "pink";
-      else if (trouve.typereserver === "Sur place") p.style.backgroundColor = "gray";
-      jour.style.backgroundColor="white !important";
     }
+
   } else {
    alert("Aucune réservation trouvée pour ce nom.");
   }
-
+  
 })
 
 // Charger les réservations existantes
