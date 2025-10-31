@@ -19,17 +19,17 @@ Toutes les données sont sauvegardées localement dans le navigateur.
 │
 │
 ├── 📁 css/
-│   ├── style.css              # Styles personnalisés du calendrier et des modales
+│   ├── style.css              
 │
 ├── 📁 js/
-│   ├── script.js              # Logique principale (ajout, modification, recherche, suppression)
+│   ├── script.js              
 │
 ├── 📁 images/
-│   ├── logo.png               # Logo du site (optionnel)
+│   ├── logo.png               
 │
-├── 📄 README.md               # Documentation complète du projet
+├── 📄 README.md              
 │
-├── 📄 index.html              # Fichier principal de la page
+├── 📄 index.html             
 ```
 
 ---
