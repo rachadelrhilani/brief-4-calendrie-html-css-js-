@@ -165,7 +165,7 @@ modifier.addEventListener('click', () => {
   }
 
 
-  /* recupere les inputs à modifie */
+  /* validation des inputs à modifie */
 
   if (!editnom) {
     return alert("Veuillez entrer un nom (le nom doit contient seulemnt des lettres)");
